@@ -15,12 +15,12 @@ export default async function Home() {
     <>
       <Navbar />
       <main className="pt-28">
-        <HeroSection subheadline={data.hero.subheadline} />
+        <HeroSection subheadline={data.hero.intro} />
         <NewsSection items={data.news} />
         <ServicesSection services={data.services} />
         <TeamSection members={data.team} />
         <PraxisSection praxis={data.praxis} />
-        <ContactSection contact={data.contact} />
+        <ContactSection contact={data.praxis} />
       </main>
       <Footer />
     </>

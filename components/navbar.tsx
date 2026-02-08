@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -63,7 +63,16 @@ export function Navbar() {
               {item.label}
             </Link>
           ))}
-          <Button asChild className="ml-4">
+          <a
+            href="https://physioteam-lappersdorf.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 inline-flex items-center gap-1 rounded-md px-3 py-2 text-xs text-gray-400 transition-colors hover:text-primary"
+          >
+            Physioteam Lappersdorf
+            <ExternalLink className="h-3 w-3" />
+          </a>
+          <Button asChild className="ml-2">
             <Link href="#kontakt">Termin vereinbaren</Link>
           </Button>
         </nav>
@@ -104,6 +113,15 @@ export function Navbar() {
                   Termin vereinbaren
                 </Link>
               </Button>
+              <a
+                href="https://physioteam-lappersdorf.de"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex items-center gap-1 px-3 py-2 text-xs text-gray-400 transition-colors hover:text-primary"
+              >
+                Physioteam Lappersdorf
+                <ExternalLink className="h-3 w-3" />
+              </a>
             </nav>
           </SheetContent>
         </Sheet>

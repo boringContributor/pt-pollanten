@@ -1,8 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
 import { User } from "lucide-react";
 import type { TeamMember } from "@/lib/graphql";
 
 export function TeamSection({ members }: { members: TeamMember[] }) {
+  if (members.length === 0) return null;
+
   return (
     <section id="team" className="scroll-mt-20 bg-white py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -13,24 +15,32 @@ export function TeamSection({ members }: { members: TeamMember[] }) {
           Kompetent, einfühlsam und engagiert — lernen Sie unser Team kennen.
         </p>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {members.map((member) => (
-            <Card
-              key={member.id}
-              className="text-center transition-shadow hover:shadow-lg"
+          {members.map((member, index) => (
+            <div
+              key={index}
+              className="group overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-xl"
             >
-              <CardHeader className="items-center pb-2">
-                <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10">
-                  <User className="h-12 w-12 text-primary" />
+              {member.portrait ? (
+                <div className="relative aspect-3/4 w-full overflow-hidden">
+                  <Image
+                    src={member.portrait.url}
+                    alt={member.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
-                <CardTitle className="text-lg">{member.name}</CardTitle>
-                <p className="text-sm font-medium text-primary">
-                  {member.role}
+              ) : (
+                <div className="flex aspect-3/4 w-full items-center justify-center bg-primary/5">
+                  <User className="h-20 w-20 text-primary/30" />
+                </div>
+              )}
+              <div className="p-5 text-center">
+                <h3 className="text-lg font-semibold">{member.name}</h3>
+                <p className="mt-1 text-sm font-medium text-primary">
+                  {member.position}
                 </p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600">{member.description}</p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
