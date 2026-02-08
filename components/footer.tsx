@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Instagram } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import type { PraxisInfo } from "@/lib/graphql";
 
 const NAV_ITEMS = [
   { label: "Aktuelles", href: "#aktuelles" },
@@ -10,7 +12,7 @@ const NAV_ITEMS = [
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-export function Footer() {
+export function Footer({ contact }: { contact: PraxisInfo }) {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -55,21 +57,22 @@ export function Footer() {
               Kontakt
             </h3>
             <address className="space-y-2 text-sm not-italic">
-              <p>Hauptstraße 12</p>
-              <p>92268 Pollanten</p>
-              <p className="mt-3">
-                Tel:{" "}
-                <a href="tel:+499188123456" className="hover:text-white">
-                  +49 9188 123456
-                </a>
-              </p>
+              <p>{contact.address}</p>
+              {contact.phone && (
+                <p className="mt-3">
+                  Tel:{" "}
+                  <a href={`tel:${contact.phone}`} className="hover:text-white">
+                    {contact.phone}
+                  </a>
+                </p>
+              )}
               <p>
                 E-Mail:{" "}
                 <a
-                  href="mailto:info@physioteam-pollanten.de"
+                  href={`mailto:${contact.email}`}
                   className="hover:text-white"
                 >
-                  info@physioteam-pollanten.de
+                  {contact.email}
                 </a>
               </p>
             </address>
@@ -83,7 +86,16 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Physioteam Pollanten. Alle Rechte
             vorbehalten.
           </p>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            <a
+              href="https://www.instagram.com/physioteam.pollanten/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
             <Link href="/datenschutz" className="transition-colors hover:text-white">
               Datenschutz
             </Link>

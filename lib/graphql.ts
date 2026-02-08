@@ -36,6 +36,7 @@ export interface LandingPageData {
   services: Service[];
   team: TeamMember[];
   praxis: PraxisInfo;
+
 }
 
 const HYGRAPH_ENDPOINT =
@@ -119,5 +120,5 @@ export async function fetchLandingPageData(): Promise<LandingPageData> {
       phone: praxis?.phone ?? null,
       email: praxis?.email ?? "",
     },
-  };
+};
 }

@@ -22,7 +22,7 @@ export default async function Home() {
         <PraxisSection praxis={data.praxis} />
         <ContactSection contact={data.praxis} />
       </main>
-      <Footer />
+      <Footer contact={data.praxis} />
     </>
   );
 }
