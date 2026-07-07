@@ -101,12 +101,22 @@ export async function fetchLandingPageData(): Promise<LandingPageData> {
       intro: intro?.intro ?? "",
       introImage: intro?.introImage ?? null,
     },
-    news: (data.newss ?? []).map((n: NewsItem) => ({
-      title: n.title,
-      description: n.description,
-      date: n.date,
-      image: n.image,
-    })),
+    news: (data.newss ?? [])
+      .map((n: NewsItem) => ({
+        title: n.title,
+        description: n.description,
+        date: n.date,
+        image: n.image,
+      }))
+      .sort((a: NewsItem, b: NewsItem) => {
+        // Newest first; items without a date sort last.
+        const at = a.date ? new Date(a.date).getTime() : NaN;
+        const bt = b.date ? new Date(b.date).getTime() : NaN;
+        if (Number.isNaN(at) && Number.isNaN(bt)) return 0;
+        if (Number.isNaN(at)) return 1;
+        if (Number.isNaN(bt)) return -1;
+        return bt - at;
+      }),
     services: (data.services ?? []).map((s: Service) => ({
       title: s.title,
       description: s.description,
