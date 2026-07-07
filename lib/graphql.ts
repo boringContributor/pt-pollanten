@@ -15,6 +15,7 @@ export interface Service {
 export interface TeamMember {
   name: string;
   position: string;
+  order: number | null;
   portrait: { url: string } | null;
 }
 
@@ -71,6 +72,7 @@ const LANDING_PAGE_QUERY = `{
   teams {
     name
     position
+    order
     portrait {
       url
     }
@@ -109,11 +111,18 @@ export async function fetchLandingPageData(): Promise<LandingPageData> {
       title: s.title,
       description: s.description,
     })),
-    team: (data.teams ?? []).map((t: TeamMember) => ({
-      name: t.name,
-      position: t.position,
-      portrait: t.portrait,
-    })),
+    team: (data.teams ?? [])
+      .map((t: TeamMember) => ({
+        name: t.name,
+        position: t.position,
+        order: t.order ?? null,
+        portrait: t.portrait,
+      }))
+      .sort(
+        (a: TeamMember, b: TeamMember) =>
+          (a.order ?? Number.MAX_SAFE_INTEGER) -
+          (b.order ?? Number.MAX_SAFE_INTEGER)
+      ),
     praxis: {
       description: praxis?.description ?? "",
       address: praxis?.address ?? "",
