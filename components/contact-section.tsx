@@ -1,6 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { ContactForm } from "@/components/contact-form";
 import type { PraxisInfo } from "@/lib/graphql";
 
 export function ContactSection({ contact }: { contact: PraxisInfo }) {
@@ -15,17 +14,7 @@ export function ContactSection({ contact }: { contact: PraxisInfo }) {
           oder kontaktieren Sie uns bei Fragen.
         </p>
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Contact form placeholder */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Nachricht senden</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ContactForm />
-            </CardContent>
-          </Card>
-
+        <div className="mx-auto max-w-3xl">
           {/* Contact details */}
           <div className="space-y-6">
             <Card>
